@@ -306,7 +306,7 @@ export function AccessContinuityMap() {
                       <tr
                         key={a.id}
                         className={`border-b last:border-0 ${
-                          a.id === selectedAsset ? "bg-blue-50" : ""
+                          a.id === selectedAsset ? "bg-blue-50 text-slate-900" : ""
                         }`}
                       >
                         <td className="py-2 px-2 flex items-center gap-2">

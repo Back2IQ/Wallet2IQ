@@ -175,7 +175,7 @@ export function NoCustodyArch() {
               </thead>
               <tbody>
                 {COMPARISONS.map((item, index) => (
-                  <tr key={index} className="border-b last:border-0 hover:bg-slate-50">
+                  <tr key={index} className="border-b last:border-0 hover:bg-slate-50 hover:text-slate-900">
                     <td className="py-3 px-4 font-medium">{item.aspect}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
@@ -272,7 +272,7 @@ export function NoCustodyArch() {
               {DAIO_LAYERS.find((l) => l.id === activeLayer)?.features.map((feature, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-2 p-2 bg-slate-50 rounded"
+                  className="flex items-center gap-2 p-2 bg-slate-50 rounded text-slate-900"
                 >
                   <Check className="w-4 h-4 text-green-500" />
                   <span className="text-sm">{feature}</span>

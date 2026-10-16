@@ -9,24 +9,20 @@
   // ============ ASSET DATA ============
   // Sources: Chainalysis 2023 (crypto), Cerulli/BCG (projections),
   // industry estimates (gaming, social, business). Illustrative.
-  const ASSETS = {
-    crypto: {
-      baseValue: 220e9,
-      dailyLoss: 127e6,
-      coins: {
-        bitcoin:  { lost: 3700000 },
-        ethereum: { lost: 24000000 },
-        solana:   { lost: 80000000 }
-      }
-    },
-    gaming:      { baseValue: 85e9,  dailyLoss: 23e6 },
-    social:      { baseValue: 120e9, dailyLoss: 33e6 },
-    business:    { baseValue: 200e9, dailyLoss: 55e6 },
-    cloud:       { baseValue: 95e9,  dailyLoss: 26e6 },
-    creative:    { baseValue: 80e9,  dailyLoss: 22e6 },
-    communities: { baseValue: 15e9,  dailyLoss: 4e6 },
-    loyalty:     { baseValue: 25e9,  dailyLoss: 7e6 }
+  // Crypto updates live via API; other categories are static.
+  const STATIC_ASSETS = {
+    gaming:      { baseValue: 85e9 },
+    social:      { baseValue: 120e9 },
+    business:    { baseValue: 200e9 },
+    cloud:       { baseValue: 95e9 },
+    creative:    { baseValue: 80e9 },
+    communities: { baseValue: 15e9 },
+    loyalty:     { baseValue: 25e9 }
   };
+
+  // Daily loss rate (~0.0578% for crypto based on historical data)
+  // This is the rate at which digital assets become inaccessible per day
+  const DAILY_LOSS_RATE = 0.000578;
 
   // ============ HELPERS ============
 
@@ -48,51 +44,43 @@
 
   // ============ LIVE TICKER ============
 
-  var cryptoPrices = null;
+  var cryptoData = null;      // Live data from API { coins, totalLost, timestamp }
   var tickerInterval = null;
-  var totalBase = 0;
+  var staticTotalBase = 0;    // Sum of all non-crypto categories
 
-  // Calculate base total from all categories
-  Object.keys(ASSETS).forEach(function (k) { totalBase += ASSETS[k].baseValue; });
+  // Calculate static base total (non-crypto categories)
+  Object.keys(STATIC_ASSETS).forEach(function (k) { staticTotalBase += STATIC_ASSETS[k].baseValue; });
 
-  var totalDailyLoss = 0;
-  Object.keys(ASSETS).forEach(function (k) { totalDailyLoss += ASSETS[k].dailyLoss; });
-
-  var perSecondLoss = totalDailyLoss / 86400;
+  // Default crypto value (fallback before API loads)
+  var cryptoBaseValue = 220e9;
 
   async function fetchCryptoPrices() {
     try {
       var r = await fetch('/api/crypto-prices');
       if (r.ok) {
         var data = await r.json();
-        if (data && data.coins) cryptoPrices = data.coins;
+        if (data && data.totalLost !== undefined) {
+          cryptoData = data;
+          cryptoBaseValue = data.totalLost;
+        }
       }
-    } catch (_) { /* fallback to baseValue */ }
+    } catch (e) {
+      console.log('Price fetch failed, using fallback');
+    }
   }
 
   function getCryptoValue() {
-    if (!cryptoPrices) return ASSETS.crypto.baseValue;
-    var val = 0;
-    var coins = ASSETS.crypto.coins;
-    Object.keys(coins).forEach(function (coin) {
-      var price = cryptoPrices[coin] && cryptoPrices[coin].price
-        ? cryptoPrices[coin].price.eur
-        : null;
-      if (price) {
-        val += coins[coin].lost * price;
-      } else {
-        val += ASSETS.crypto.baseValue / 3;
-      }
-    });
-    return val;
+    return cryptoData ? cryptoData.totalLost : cryptoBaseValue;
   }
 
   function computeTotal() {
-    var total = getCryptoValue();
-    Object.keys(ASSETS).forEach(function (k) {
-      if (k !== 'crypto') total += ASSETS[k].baseValue;
-    });
-    return total;
+    return getCryptoValue() + staticTotalBase;
+  }
+
+  // Calculate per-second loss based on current total value and daily loss rate
+  function getPerSecondLoss() {
+    var total = computeTotal();
+    return (total * DAILY_LOSS_RATE) / 86400;
   }
 
   function initTicker() {
@@ -100,28 +88,39 @@
     var perSecEl = document.getElementById('per-sec-value');
     var cryptoEl = document.getElementById('crypto-value');
 
+    var initialTotal = cryptoBaseValue + staticTotalBase;
+    var initialPerSec = getPerSecondLoss();
+
     // Initial count-up animation
-    if (totalEl) animateCounter(totalEl, totalBase, 2000);
-    if (perSecEl) perSecEl.textContent = formatEur(perSecondLoss);
+    if (totalEl) animateCounter(totalEl, initialTotal, 2000);
+    if (perSecEl) perSecEl.textContent = formatEur(initialPerSec);
 
     // Fetch live crypto prices
     fetchCryptoPrices().then(function () {
       var liveTotal = computeTotal();
+      var livePerSec = getPerSecondLoss();
       if (totalEl) totalEl.textContent = formatEur(liveTotal);
+      if (perSecEl) perSecEl.textContent = formatEur(livePerSec);
       if (cryptoEl) cryptoEl.textContent = formatEur(getCryptoValue());
     });
 
-    // Re-fetch every 60s
+    // Re-fetch every 60s and update displays
     setInterval(function () {
       fetchCryptoPrices().then(function () {
+        var livePerSec = getPerSecondLoss();
         if (cryptoEl) cryptoEl.textContent = formatEur(getCryptoValue());
+        if (perSecEl) perSecEl.textContent = formatEur(livePerSec);
       });
     }, 60000);
 
-    // Live micro-tick every 100ms — total value creeps up
+    // Live micro-tick every 100ms — total value creeps up based on current per-second rate
     var microOffset = 0;
+    var lastPerSec = initialPerSec;
     tickerInterval = setInterval(function () {
-      microOffset += perSecondLoss * 0.1;
+      // Recalculate per-second rate in case crypto price changed
+      var currentPerSec = getPerSecondLoss();
+      lastPerSec = currentPerSec;
+      microOffset += currentPerSec * 0.1;
       var live = computeTotal() + microOffset;
       if (totalEl) totalEl.textContent = formatEur(live);
     }, 100);

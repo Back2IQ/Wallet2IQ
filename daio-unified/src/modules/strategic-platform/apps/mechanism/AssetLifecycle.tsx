@@ -304,14 +304,14 @@ export function AssetLifecycle() {
                       {asset.icon}
                     </div>
                     <div>
-                      <div className="font-medium text-sm">{asset.name}</div>
+                      <div className="font-medium text-sm text-slate-900">{asset.name}</div>
                       <div className="text-xs text-slate-500">
                         Phase: {LIFECYCLE_STAGES.find((s) => s.id === asset.stage)?.name}
                       </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-mono text-sm">
+                    <div className="font-mono text-sm text-slate-900">
                       ${(asset.value / 1000).toFixed(0)}k
                     </div>
                     <Badge
@@ -333,11 +333,11 @@ export function AssetLifecycle() {
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="flex justify-between p-2 bg-slate-50 rounded">
                   <span className="text-slate-500">Assets registered:</span>
-                  <span className="font-medium">12</span>
+                  <span className="font-medium text-slate-900">12</span>
                 </div>
                 <div className="flex justify-between p-2 bg-slate-50 rounded">
                   <span className="text-slate-500">Total value:</span>
-                  <span className="font-medium">$1.2M</span>
+                  <span className="font-medium text-slate-900">$1.2M</span>
                 </div>
                 <div className="flex justify-between p-2 bg-slate-50 rounded">
                   <span className="text-slate-500">Executor assigned:</span>
@@ -345,7 +345,7 @@ export function AssetLifecycle() {
                 </div>
                 <div className="flex justify-between p-2 bg-slate-50 rounded">
                   <span className="text-slate-500">Last review:</span>
-                  <span className="font-medium">14 days</span>
+                  <span className="font-medium text-slate-900">14 days</span>
                 </div>
               </div>
             </div>

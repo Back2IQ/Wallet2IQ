@@ -48,6 +48,7 @@ export function RulesCheckPanel() {
             textColor = "text-red-700";
           }
 
+          const isLightBg = result && !result.passed && (result.severity === "error" || result.severity === "warning");
           return (
             <div
               key={rule.id}
@@ -61,7 +62,7 @@ export function RulesCheckPanel() {
               <div>
                 <p className={cn("font-medium", textColor)}>{rule.name}</p>
                 {result && !result.passed && (
-                  <p className="text-muted-foreground mt-0.5">{result.message}</p>
+                  <p className={cn("mt-0.5", isLightBg ? "text-slate-700" : "text-muted-foreground")}>{result.message}</p>
                 )}
               </div>
             </div>
@@ -78,7 +79,7 @@ export function RulesCheckPanel() {
             <div
               key={`extra-${i}`}
               className={cn(
-                "flex items-start gap-2 rounded-md px-2 py-1.5 text-xs",
+                "flex items-start gap-2 rounded-md px-2 py-1.5 text-xs text-slate-900",
                 result.severity === "error" ? "bg-red-50" : "bg-amber-50"
               )}
             >
@@ -91,7 +92,7 @@ export function RulesCheckPanel() {
               </span>
               <div>
                 <p className="font-medium">{result.ruleName}</p>
-                <p className="text-muted-foreground mt-0.5">{result.message}</p>
+                <p className="text-slate-700 mt-0.5">{result.message}</p>
               </div>
             </div>
           ))}

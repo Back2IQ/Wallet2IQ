@@ -208,7 +208,7 @@ export function ContinuityIndex() {
                         .map((component) => (
                           <div
                             key={component.id}
-                            className={`flex items-center justify-between p-2 rounded ${
+                            className={`flex items-center justify-between p-2 rounded text-slate-900 ${
                               component.implemented
                                 ? "bg-green-50 border border-green-200"
                                 : "bg-slate-50 border border-slate-200"

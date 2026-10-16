@@ -97,7 +97,7 @@ export function UploadScreen() {
               onChange={handleFileInput}
             />
             {file ? (
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-2 text-slate-900">
                 <FileText className="size-10 text-green-600" />
                 <p className="font-medium">{file.name}</p>
                 <Badge variant="secondary">{wordCount.toLocaleString()} words</Badge>

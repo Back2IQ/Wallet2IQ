@@ -63,7 +63,7 @@ structure as a sales dramaturgy and working toolset:
 ### 3. The Wallet (`/src`)
 A reference implementation of a multi-chain wallet with integrated DAIO
 inheritance features: Shamir Secret Sharing, guardian/heir portals, notary
-verification, transfer gates, dead man's switch, and audit trail.
+verification, transfer gates, dead man's switch, Panic Button (Emergency Protocol), and audit trail.
 
 ### 4. The Landing Page (`/landing`)
 The public-facing entry point at daio.back2iq.com.
@@ -75,6 +75,7 @@ The public-facing entry point at daio.back2iq.com.
 - **Legacy Proof Protocol** — cryptographic proof-of-process for inheritance
 - **Succession Sentinel System** — automated life-event detection
 - **Transfer Gate Protocol** — authorization gateways for asset release
+- **Panic Button (Emergency Protocol)** — pre-defined asset rescue via DID-verification
 - **Heritage Integrity Framework** — compliance and audit integration
 
 These terms are original to this work. See [NOTICE.md](NOTICE.md).

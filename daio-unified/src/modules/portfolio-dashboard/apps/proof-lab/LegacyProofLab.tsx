@@ -330,10 +330,10 @@ export function LegacyProofLab() {
                       key={entry.id}
                       className={`relative p-4 rounded-lg border-2 transition-all ${
                         isTampered
-                          ? "border-red-500 bg-red-50"
+                          ? "border-red-500 bg-red-50 text-slate-900"
                           : index > 0 && entries[index].previousHash !== entries[index - 1].hash
-                          ? "border-red-400 bg-red-50/50"
-                          : "border-slate-200 bg-white dark:bg-slate-800"
+                          ? "border-red-400 bg-red-50/50 text-slate-900"
+                          : "border-slate-200 bg-white text-slate-900 dark:bg-slate-800 dark:text-slate-100"
                       }`}
                     >
                       {/* Chain Link */}
@@ -388,20 +388,20 @@ export function LegacyProofLab() {
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
                             <span className="text-slate-500">Entry Hash:</span>
-                            <code className="ml-2 font-mono text-xs bg-slate-100 px-2 py-1 rounded">
+                            <code className="ml-2 font-mono text-xs bg-slate-100 text-slate-900 px-2 py-1 rounded">
                               {formatHash(entry.hash)}
                             </code>
                           </div>
                           <div>
                             <span className="text-slate-500">Previous Hash:</span>
-                            <code className="ml-2 font-mono text-xs bg-slate-100 px-2 py-1 rounded">
+                            <code className="ml-2 font-mono text-xs bg-slate-100 text-slate-900 px-2 py-1 rounded">
                               {formatHash(entry.previousHash)}
                             </code>
                           </div>
                         </div>
 
                         {isExpanded && (
-                          <div className="mt-3 p-3 bg-slate-50 rounded text-sm">
+                          <div className="mt-3 p-3 bg-slate-50 rounded text-sm text-slate-900">
                             <div className="text-slate-500 mb-1">Data:</div>
                             <div>{entry.data}</div>
                             <div className="mt-2 text-xs text-slate-400 font-mono break-all">

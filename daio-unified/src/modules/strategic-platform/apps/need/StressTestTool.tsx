@@ -358,7 +358,7 @@ export function StressTestTool() {
                   {results.blockedAssets.map((asset) => (
                     <div
                       key={asset.id}
-                      className="flex items-center justify-between p-2 bg-red-50 rounded"
+                      className="flex items-center justify-between p-2 bg-red-50 rounded text-slate-900"
                     >
                       <span className="text-sm font-medium">{asset.name}</span>
                       <div className="text-right">

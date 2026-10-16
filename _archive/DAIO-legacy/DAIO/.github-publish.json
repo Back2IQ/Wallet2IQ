@@ -1,0 +1,149 @@
+{
+  "project": "DAIO",
+  "repoName": "daio-platform",
+  "description": "Digital Asset Inheritance & Ownership platform — tools for crypto estate planning, asset discovery, and regulatory compliance (BGH, MiCA, BaFin).",
+  "visibility": "private",
+  "license": "PROPRIETARY",
+  "techStack": ["React 19", "TypeScript", "Vite 7", "Electron 40", "React Native (Expo 54)", "Zustand", "Recharts", "Tailwind CSS"],
+  "version": "1.0.0",
+
+  "gitignore": {
+    "status": "exists",
+    "verified": true,
+    "covers": ["node_modules/", "dist/", ".env", ".env.*", ".pnpm-store/"]
+  },
+
+  "subProjects": {
+    "note": "DAIO is a mono-directory with 14+ sub-projects. Publish strategy options:",
+    "options": [
+      "Option A: Single repo with all sub-projects (simplest)",
+      "Option B: DAIO-Unified as main repo, others as separate repos",
+      "Option C: Only publish Commander MVP and Wallet as showcase"
+    ],
+    "recommended": "Option B — DAIO-Unified aggregates 9 apps, Commander MVP is standalone",
+    "projects": {
+      "DAIO-Unified": {
+        "path": "DAIO-App/DAIO VS-Code/DAIO-Unified/",
+        "description": "9-in-1 module aggregator — main entry point",
+        "publishReady": true
+      },
+      "DAIO-Commander-MVP": {
+        "path": "DAIO-App/Kimi_Agent_DAIO Commander MVP/app/",
+        "description": "Electron desktop app — 7-step sales journey, Global Loss Estimator",
+        "publishReady": true
+      },
+      "DAIO-Wallet-Browser": {
+        "path": "DAIO-App/DAIO Wallet/app/",
+        "description": "Browser HD wallet — BIP39/32, Argon2id, AES-GCM",
+        "publishReady": false,
+        "blockers": ["Demo Shamir SSS stub needs disclosure", "Verify no real private keys in test data"]
+      },
+      "daio-wallet-mobile": {
+        "path": "DAIO-App/daio-wallet/",
+        "description": "React Native mobile wallet — Expo, tRPC, Drizzle ORM",
+        "publishReady": false,
+        "blockers": ["PIN stored in plaintext (known demo limitation)", "MySQL credentials in config"]
+      },
+      "DAIO-Calculator": {
+        "path": "DAIO-App/DAIO VS-Code/DAIO-Calculator/",
+        "description": "ROI calculator for DAIO implementation value",
+        "publishReady": true
+      },
+      "DAIO-Sales-Blueprint": {
+        "path": "DAIO-App/DAIO VS-Code/DAIO-Interactive Sales Blueprint/app/",
+        "description": "Interactive sales playbook with compliance checklist",
+        "publishReady": true
+      },
+      "DAIO-Document-Rewriter": {
+        "path": "DAIO-App/DAIO VS-Code/DAIO-Document-Rewriter/",
+        "description": "Side-by-side document diff & rewriting tool",
+        "publishReady": true
+      },
+      "DAIO-Template-Generator": {
+        "path": "DAIO-App/DAIO VS-Code/DAIO-Template-Generator/app/",
+        "description": "DOCX template generator with wizard UI",
+        "publishReady": true
+      },
+      "DAIO-BTC-Loss-Ticker": {
+        "path": "DAIO-App/DAIO VS-Code/DAIO-BTC-Loss-Ticker/",
+        "description": "Real-time crypto loss estimation ticker",
+        "publishReady": true
+      },
+      "DAIO-Portfolio-Dashboard": {
+        "path": "DAIO-App/DAIO VS-Code/DAIO Portfolio Continuity Dashboard/",
+        "description": "Portfolio monitoring with PDF/image export",
+        "publishReady": true
+      }
+    }
+  },
+
+  "sensitiveFiles": {
+    "block": [
+      "Any .env files in sub-projects",
+      "daio-wallet/server/ — may contain DB credentials",
+      "DAIO Wallet/app/src/crypto.ts — verify no hardcoded keys in tests"
+    ],
+    "review": [
+      "Commander MVP — white-label config (Back2IQ vs F&P branding)",
+      "Sales Blueprint — compliance checklist content (business IP)",
+      "Wallet crypto.ts — Argon2id/AES-GCM implementation (security-critical)",
+      "Template Generator — DOCX templates may contain client-specific content"
+    ],
+    "safe": [
+      "DAIO-Calculator/",
+      "DAIO-BTC-Loss-Ticker/",
+      "DAIO-Pionierfall-Pitch/"
+    ]
+  },
+
+  "scannerPatterns": [
+    "DAIO",
+    "Back2IQ",
+    "b2iq",
+    "F&P Kapitalstrukturen",
+    "Kimi_Agent",
+    "Sovereign Guard",
+    "Heritage-Integrity",
+    "Vault Protocol",
+    "daio-wallet",
+    "Global Loss Estimator"
+  ],
+
+  "prePushChecklist": [
+    "CRITICAL: Wallet projects contain crypto code — audit for real private keys or mnemonics",
+    "Commander MVP has Electron build config — exclude signing certificates and installer output",
+    "Verify no MySQL/PostgreSQL credentials in daio-wallet server configs",
+    "Template Generator may have client-specific DOCX templates — remove before publish",
+    "Archive/ and duplicate folders (Template Generator App (1)) should be excluded",
+    "ZIP files in directory should NOT be committed",
+    "Global Loss Estimator numbers (47B EUR) are public claims — OK to publish",
+    "Remove any Kimi_Agent prefixes from folder names if publishing"
+  ],
+
+  "readmeTemplate": {
+    "title": "DAIO — Digital Asset Inheritance & Ownership",
+    "tagline": "Securing digital legacies through technology and compliance",
+    "sections": [
+      "Vision — Why digital asset inheritance matters",
+      "Platform Overview — 9 integrated modules",
+      "Key Tools — Calculator, Sales Blueprint, Commander MVP",
+      "Tech Stack — React 19, Electron, React Native, TypeScript",
+      "Architecture — DAIO-Unified as master aggregator",
+      "Compliance — BGH, MiCA, BaFin, GDPR frameworks",
+      "Getting Started",
+      "License"
+    ],
+    "badges": ["React 19", "Electron", "TypeScript", "Compliance-First"]
+  },
+
+  "specialInstructions": [
+    "PRIVATE REPO STRONGLY RECOMMENDED — contains proprietary business logic and compliance frameworks",
+    "The wallet implementations use real cryptographic primitives — security audit before any public release",
+    "Shamir Secret Sharing in daio-wallet (RN) is a DEMO STUB — clearly label this",
+    "Commander MVP white-label toggle reveals partner strategy — consider removing before publish",
+    "Multiple duplicate/archive folders exist — clean up directory structure before publishing",
+    "DAIO-Unified is the recommended single entry point for web deployment"
+  ],
+
+  "topicTags": ["digital-inheritance", "crypto-estate-planning", "compliance", "react", "electron", "wallet"]
+}

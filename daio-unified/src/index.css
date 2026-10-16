@@ -154,6 +154,21 @@ html {
 .dark .bg-gray-50, .dark .bg-slate-50 { background-color: hsl(222 24% 14%) !important; }
 .dark .bg-gray-100, .dark .bg-slate-100 { background-color: hsl(222 24% 17%) !important; }
 .dark .bg-blue-50, .dark .bg-indigo-50 { background-color: hsl(222 30% 15%) !important; }
+.dark .bg-red-50    { background-color: hsl(0 50% 15%) !important; }
+.dark .bg-amber-50  { background-color: hsl(38 50% 15%) !important; }
+.dark .bg-yellow-50 { background-color: hsl(48 50% 15%) !important; }
+.dark .bg-orange-50 { background-color: hsl(20 50% 15%) !important; }
+.dark .bg-green-50  { background-color: hsl(142 40% 13%) !important; }
+.dark .bg-emerald-50{ background-color: hsl(152 40% 13%) !important; }
+.dark .bg-purple-50 { background-color: hsl(265 30% 16%) !important; }
+.dark .bg-pink-50   { background-color: hsl(330 30% 16%) !important; }
+.dark .bg-red-100    { background-color: hsl(0 45% 20%) !important; }
+.dark .bg-amber-100  { background-color: hsl(38 45% 20%) !important; }
+.dark .bg-yellow-100 { background-color: hsl(48 45% 20%) !important; }
+.dark .bg-orange-100 { background-color: hsl(20 45% 20%) !important; }
+.dark .bg-green-100  { background-color: hsl(142 35% 18%) !important; }
+.dark .bg-blue-100, .dark .bg-indigo-100 { background-color: hsl(222 35% 22%) !important; }
+.dark .bg-purple-100 { background-color: hsl(265 28% 22%) !important; }
 
 .dark .text-gray-600, .dark .text-slate-600 { color: hsl(220 9% 58%) !important; }
 .dark .text-gray-500, .dark .text-slate-500 { color: hsl(220 9% 52%) !important; }

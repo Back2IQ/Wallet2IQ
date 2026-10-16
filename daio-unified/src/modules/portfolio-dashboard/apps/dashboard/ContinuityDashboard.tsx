@@ -435,7 +435,7 @@ export function ContinuityDashboard() {
                       >
                         {bp.severity}
                       </Badge>
-                      <span className="text-sm">{bp.text}</span>
+                      <span className="text-sm text-slate-900">{bp.text}</span>
                     </div>
                   ))}
                 </div>

@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-vault-950 text-vault-100 font-sans antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(16, 185, 129, 0.06), transparent),
+      radial-gradient(ellipse 60% 40% at 85% 110%, rgba(139, 92, 246, 0.05), transparent);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-signal-emerald/30 text-vault-100;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-vault-700 rounded-full border-2 border-solid border-vault-950;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-vault-600;
+  }
+}
+
+@layer components {
+  .hairline {
+    @apply border border-vault-800;
+  }
+
+  .panel {
+    @apply bg-vault-900/80 backdrop-blur-sm hairline rounded-xl shadow-card;
+  }
+
+  .panel-elevated {
+    @apply bg-gradient-to-b from-vault-850 to-vault-900 hairline rounded-xl shadow-card;
+  }
+
+  .ring-signal {
+    @apply ring-1 ring-signal-emerald/30;
+  }
+
+  .kbd {
+    @apply font-mono text-xxs px-1.5 py-0.5 rounded bg-vault-800 text-vault-300 border border-vault-700;
+  }
+
+  .section-label {
+    @apply text-xxs font-semibold tracking-[0.14em] text-vault-400 uppercase;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

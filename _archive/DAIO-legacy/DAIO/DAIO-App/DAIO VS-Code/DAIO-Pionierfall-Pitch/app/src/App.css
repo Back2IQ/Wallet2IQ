@@ -1,0 +1,85 @@
+.scroll-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  height: 100vh;
+  scroll-behavior: smooth;
+}
+
+.scroll-section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dot grid background pattern */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Subtle grid lines background */
+.grid-lines {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Animated gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #3b82f6, #fbbf24, #34d399);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 5s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Staggered animation delays */
+.stagger-children > * { opacity: 0; }
+.stagger-children.visible > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children.visible > *:nth-child(2) { animation-delay: 150ms; }
+.stagger-children.visible > *:nth-child(3) { animation-delay: 300ms; }
+.stagger-children.visible > *:nth-child(4) { animation-delay: 450ms; }
+.stagger-children.visible > *:nth-child(5) { animation-delay: 600ms; }
+.stagger-children.visible > *:nth-child(6) { animation-delay: 750ms; }
+.stagger-children.visible > *:nth-child(7) { animation-delay: 900ms; }
+.stagger-children.visible > *:nth-child(8) { animation-delay: 1050ms; }
+.stagger-children.visible > *:nth-child(9) { animation-delay: 1200ms; }
+
+/* Pipeline connector */
+.pipeline-connector {
+  position: relative;
+}
+.pipeline-connector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -0.75rem;
+  width: 0.75rem;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(59,130,246,0.5), rgba(59,130,246,0.2));
+  transform: translateY(-50%);
+}
+.pipeline-connector:last-child::after {
+  display: none;
+}
+
+/* Value bar animation */
+.value-bar {
+  transition: width 1.5s ease-out;
+}
+
+/* Radial glow for hero */
+.hero-glow {
+  background: radial-gradient(ellipse at center, rgba(59,130,246,0.08) 0%, transparent 70%);
+}
